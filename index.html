@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kosk - Монтажер видео</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Шапка -->
+    <header class="header">
+        <div class="container">
+            <h1 class="logo">Kosk</h1>
+        </div>
+    </header>
+
+    <!-- Основной контент -->
+    <main class="main">
+        <div class="container">
+            <!-- Категории -->
+            <nav class="categories">
+                <button class="category-btn active" data-category="top">Top Projects</button>
+                <button class="category-btn" data-category="directed">Directed by me</button>
+                <button class="category-btn" data-category="other">Other</button>
+            </nav>
+
+            <!-- Галерея видео -->
+            <section class="gallery">
+                <!-- TOP PROJECTS -->
+                <div class="category-section" data-category="top">
+                    <div class="gallery-grid">
+                        <!-- КАК ДОБАВЛЯТЬ ВИДЕО:
+                        
+                        1. Скопируй блок ниже и вставь его в нужную категорию
+                        2. Замени:
+                           - data-youtube="VIDEO_ID" → ID из YouTube ссылки
+                           - data-preview="PREVIEW_URL" → ссылка на динамичное превью
+                           - video-title → название твоего видео
+                           - artist-name → артисты/исполнители
+                           
+                        ПРИМЕР для https://www.youtube.com/watch?v=AvYx2WhLhYE :
+                        - VIDEO_ID = AvYx2WhLhYE
+                        - data-youtube="AvYx2WhLhYE"
+                        
+                        ДЛЯ ДИНАМИЧНОГО ПРЕВЬЮ:
+                        - Формат: MP4 (H.264 кодек, AAC аудио)
+                        - Размер: 1280x720px или 1920x1080px (в зависимости от ratio)
+                        - Вес: 3-5 МБ (8-15 секунд видео, 30 fps)
+                        - Рекомендуемый битрейт: 2-3 Mbps (видео) + 128 kbps (аудио)
+                        - Инструмент: FFmpeg для конвертации
+                        - Хостинг: можешь закинуть в папку /videos в репозитории
+                        
+                        КОМАНДА FFmpeg для оптимизации превью:
+                        ffmpeg -i input.mp4 -vf "scale=1280:720" -c:v libx264 -crf 23 -preset fast -c:a aac -b:a 128k -t 10 output.mp4
+                        
+                        -->
+                        
+                        <div class="video-card" data-youtube="AvYx2WhLhYE" data-preview="videos/preview1.mp4">
+                            <div class="video-preview">
+                                <video autoplay muted loop>
+                                    <source src="videos/preview1.mp4" type="video/mp4">
+                                </video>
+                                <div class="play-icon">▶</div>
+                            </div>
+                            <div class="video-info">
+                                <h3>SEEKMEE, MAYOT - WINDOWS</h3>
+                                <p>prod. by DooMee, TonySouljah & VisaGangBeatz</p>
+                            </div>
+                        </div>
+
+                        <div class="video-card" data-youtube="JkUjd7iFui4" data-preview="videos/preview2.mp4">
+                            <div class="video-preview">
+                                <video autoplay muted loop>
+                                    <source src="videos/preview2.mp4" type="video/mp4">
+                                </video>
+                                <div class="play-icon">▶</div>
+                            </div>
+                            <div class="video-info">
+                                <h3>ДРУГОЕ ВИДЕО</h3>
+                                <p>Описание видео</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DIRECTED BY ME -->
+                <div class="category-section hidden" data-category="directed">
+                    <div class="gallery-grid">
+                        <div class="video-card" data-youtube="AvYx2WhLhYE" data-preview="videos/preview1.mp4">
+                            <div class="video-preview">
+                                <video autoplay muted loop>
+                                    <source src="videos/preview1.mp4" type="video/mp4">
+                                </video>
+                                <div class="play-icon">▶</div>
+                            </div>
+                            <div class="video-info">
+                                <h3>SEEKMEE, MAYOT - WINDOWS</h3>
+                                <p>prod. by DooMee, TonySouljah & VisaGangBeatz</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- OTHER -->
+                <div class="category-section hidden" data-category="other">
+                    <div class="gallery-grid">
+                        <div class="video-card" data-youtube="JkUjd7iFui4" data-preview="videos/preview2.mp4">
+                            <div class="video-preview">
+                                <video autoplay muted loop>
+                                    <source src="videos/preview2.mp4" type="video/mp4">
+                                </video>
+                                <div class="play-icon">▶</div>
+                            </div>
+                            <div class="video-info">
+                                <h3>ДРУГОЕ ВИДЕО</h3>
+                                <p>Описание видео</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Подвал -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <a href="mailto:koskwork@gmail.com" class="footer-link">
+                    <span class="icon">✉</span> koskwork@gmail.com
+                </a>
+                <a href="https://t.me/kosk7" target="_blank" class="footer-link">
+                    <span class="icon">✈</span> t.me/kosk7
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Модальный плеер -->
+    <div class="modal hidden" id="videoModal">
+        <div class="modal-content">
+            <button class="modal-close">✕</button>
+            <div class="player-wrapper">
+                <iframe 
+                    id="youtubePlayer"
+                    width="100%" 
+                    height="100%" 
+                    src="" 
+                    title="YouTube video player" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+            <div class="player-actions">
+                <a id="youtubeLink" href="" target="_blank" class="btn btn-primary">Смотреть на YouTube</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
